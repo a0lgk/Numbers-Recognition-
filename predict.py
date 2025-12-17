@@ -11,6 +11,11 @@ import os
 import sys
 
 
+# Constants
+GRAYSCALE_THRESHOLD = 127  # Threshold for inverting image colors
+BAR_SCALE_FACTOR = 2  # Scale factor for probability bar visualization
+
+
 def load_model(model_path='models/digit_recognition_model.h5'):
     """
     Load the trained model.
@@ -51,7 +56,7 @@ def preprocess_image(image_path):
     
     # Invert colors if necessary (MNIST has white digits on black background)
     # If the image has black digits on white background, invert it
-    if np.mean(img_array) > 127:
+    if np.mean(img_array) > GRAYSCALE_THRESHOLD:
         img_array = 255 - img_array
     
     # Normalize to [0, 1]
@@ -92,7 +97,7 @@ def predict_digit(model, image_path, show_plot=True):
     print("\nProbabilities for each digit:")
     for digit in range(10):
         prob = predictions[0][digit] * 100
-        bar = '█' * int(prob / 2)
+        bar = '█' * int(prob / BAR_SCALE_FACTOR)
         print(f"{digit}: {prob:5.2f}% {bar}")
     
     if show_plot:

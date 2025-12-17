@@ -57,8 +57,8 @@ def load_and_preprocess_data():
     x_test = np.expand_dims(x_test, -1)
     
     # Convert labels to categorical (one-hot encoding)
-    y_train = keras.utils.to_categorical(y_train, 10)
-    y_test = keras.utils.to_categorical(y_test, 10)
+    y_train = tf.keras.utils.to_categorical(y_train, 10)
+    y_test = tf.keras.utils.to_categorical(y_test, 10)
     
     return x_train, y_train, x_test, y_test
 
